@@ -12,6 +12,7 @@ function Calculator() {
         </div>
         <div className='row'>
           <div
+            id='display'
             data-current-operand=''
             type='text'
             className='border border-primary form-control-lg col text-end current-operand shadow'
@@ -28,6 +29,7 @@ function Calculator() {
             DELETE
           </button>
           <button
+            id='clear'
             data-all-clear=''
             type='button'
             className='btn btn-outline-danger reset col shadow'
@@ -37,6 +39,7 @@ function Calculator() {
         </div>
         <div className='row'>
           <button
+            id='seven'
             data-number=''
             type='button'
             className='btn btn-outline-secondary col shadow'
@@ -44,6 +47,7 @@ function Calculator() {
             7
           </button>
           <button
+            id='eight'
             data-number=''
             type='button'
             className='btn btn-outline-secondary col shadow'
@@ -51,6 +55,7 @@ function Calculator() {
             8
           </button>
           <button
+            id='nine'
             data-number=''
             type='button'
             className='btn btn-outline-secondary col shadow'
@@ -58,6 +63,7 @@ function Calculator() {
             9
           </button>
           <button
+            id='divide'
             data-operation=''
             type='button'
             className='btn btn-outline-primary col shadow'
@@ -67,6 +73,7 @@ function Calculator() {
         </div>
         <div className='row'>
           <button
+            id='four'
             data-number=''
             type='button'
             className='btn btn-outline-secondary col shadow'
@@ -74,6 +81,7 @@ function Calculator() {
             4
           </button>
           <button
+            id='five'
             data-number=''
             type='button'
             className='btn btn-outline-secondary col shadow'
@@ -81,6 +89,7 @@ function Calculator() {
             5
           </button>
           <button
+            id='six'
             data-number=''
             type='button'
             className='btn btn-outline-secondary col shadow'
@@ -88,6 +97,7 @@ function Calculator() {
             6
           </button>
           <button
+            id='multiply'
             data-operation=''
             type='button'
             className='btn btn-outline-primary col shadow'
@@ -97,6 +107,7 @@ function Calculator() {
         </div>
         <div className='row'>
           <button
+            id='one'
             data-number=''
             type='button'
             className='btn btn-outline-secondary col shadow'
@@ -104,6 +115,7 @@ function Calculator() {
             1
           </button>
           <button
+            id='two'
             data-number=''
             type='button'
             className='btn btn-outline-secondary col shadow'
@@ -111,6 +123,7 @@ function Calculator() {
             2
           </button>
           <button
+            id='three'
             data-number=''
             type='button'
             className='btn btn-outline-secondary col shadow'
@@ -118,6 +131,7 @@ function Calculator() {
             3
           </button>
           <button
+            id='subtract'
             data-operation=''
             type='button'
             className='btn btn-outline-primary col shadow'
@@ -127,6 +141,7 @@ function Calculator() {
         </div>
         <div className='row'>
           <button
+            id='decimal'
             data-number=''
             type='button'
             className='btn btn-outline-secondary col shadow'
@@ -134,6 +149,7 @@ function Calculator() {
             .
           </button>
           <button
+            id='zero'
             data-number=''
             type='button'
             className='btn btn-outline-secondary col shadow'
@@ -141,6 +157,7 @@ function Calculator() {
             0
           </button>
           <button
+            id='equals'
             data-equals=''
             type='button'
             className='btn btn-outline-success col shadow'
@@ -148,6 +165,7 @@ function Calculator() {
             =
           </button>
           <button
+            id='add'
             data-operation=''
             type='button'
             className='btn btn-outline-primary col shadow'
