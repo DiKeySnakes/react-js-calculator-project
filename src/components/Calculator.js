@@ -2,13 +2,11 @@ import React, { useState, useEffect } from 'react';
 
 function Calculator() {
   const [previousOperand, setPreviousOperand] = useState('');
-  const [currentOperand, setCurrentOperand] = useState('');
+  const [currentOperand, setCurrentOperand] = useState('0');
   const [operation, setOperation] = useState(undefined);
-  const [previousOperandDisplay, setPreviousOperandDisplay] = useState('');
-  const [currentOperandDisplay, setCurrentOperandDisplay] = useState('0');
 
   const clear = () => {
-    setCurrentOperand('');
+    setCurrentOperand('0');
     setPreviousOperand('');
     setOperation(undefined);
   };
@@ -30,11 +28,13 @@ function Calculator() {
   const chooseOperation = (operation) => {
     if (currentOperand === '') return;
     if (previousOperand !== '') {
-      compute();
+      operationCompute();
+      setOperation(operation);
+    } else {
+      setOperation(operation);
+      setPreviousOperand(currentOperand);
+      setCurrentOperand('');
     }
-    setOperation(operation);
-    setPreviousOperand(currentOperand);
-    setCurrentOperand('');
   };
 
   const compute = () => {
@@ -67,6 +67,36 @@ function Calculator() {
     setPreviousOperand('');
   };
 
+  const operationCompute = () => {
+    let computation;
+    const previous = parseFloat(previousOperand);
+    const current = parseFloat(currentOperand);
+    if (isNaN(previous) || isNaN(current)) return;
+    if (operation === '/' && currentOperand === '0') {
+      alert("You can't divide by 0!");
+      return;
+    }
+    switch (operation) {
+      case '+':
+        computation = previous + current;
+        break;
+      case '-':
+        computation = previous - current;
+        break;
+      case '*':
+        computation = previous * current;
+        break;
+      case '/':
+        computation = previous / current;
+        break;
+      default:
+        return;
+    }
+    setCurrentOperand('');
+    setOperation(undefined);
+    setPreviousOperand(computation);
+  };
+
   const getDisplayNumber = (number) => {
     const stringNumber = number.toString();
     const integerDigits = parseFloat(stringNumber.split('.')[0]);
@@ -86,17 +116,6 @@ function Calculator() {
     }
   };
 
-  const updateDisplay = () => {
-    setCurrentOperandDisplay(getDisplayNumber(currentOperand));
-    if (operation != null) {
-      setPreviousOperandDisplay(
-        `${getDisplayNumber(previousOperand)} ${operation}`
-      );
-    } else {
-      setPreviousOperandDisplay('');
-    }
-  };
-
   useEffect(() => {
     window.addEventListener('keydown', enableKeyboardInput);
   });
@@ -104,54 +123,43 @@ function Calculator() {
   const numClickHandler = (e) => {
     const value = e.target.innerHTML;
     appendNumber(value);
-    updateDisplay();
   };
 
   const opClickHandler = (e) => {
     const value = e.target.innerHTML;
     chooseOperation(value);
-    updateDisplay();
   };
 
   const equalsClickHandler = () => {
     compute();
-    updateDisplay();
   };
 
   const allClearClickHandler = () => {
     clear();
-    updateDisplay();
   };
 
   const deleteNumberClickHandler = () => {
     deleteNumber();
-    updateDisplay();
   };
 
   function enableKeyboardInput(e) {
     if (e.key >= 0 && e.key <= 9) {
       appendNumber(e.key);
-      updateDisplay();
     }
     if (e.key === '.') {
       appendNumber(e.key);
-      updateDisplay();
     }
     if (e.key === '=' || e.key === 'Enter') {
       compute();
-      updateDisplay();
     }
     if (e.key === 'Backspace') {
       deleteNumber();
-      updateDisplay();
     }
     if (e.key === 'Escape') {
       clear();
-      updateDisplay();
     }
     if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/') {
       chooseOperation(e.key);
-      updateDisplay();
     }
   }
 
@@ -163,9 +171,9 @@ function Calculator() {
             data-previous-operand=''
             type='text'
             className='border border-primary form-control-sm text-end previous-operand shadow'
-            disabled=''
-          />
-          {previousOperandDisplay}
+            disabled=''>
+            {getDisplayNumber(previousOperand)} {operation}
+          </div>
         </div>
         <div className='row'>
           <div
@@ -174,7 +182,7 @@ function Calculator() {
             type='text'
             className='border border-primary form-control-lg col text-end current-operand shadow'
             disabled=''>
-            {currentOperandDisplay}
+            {getDisplayNumber(currentOperand)}
           </div>
         </div>
         <div className='row'>
