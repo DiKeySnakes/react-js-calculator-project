@@ -4,6 +4,7 @@ function Calculator() {
   const [previousOperand, setPreviousOperand] = useState('');
   const [currentOperand, setCurrentOperand] = useState('0');
   const [operation, setOperation] = useState(undefined);
+  const [negativeOperand, setNegativeOperand] = useState(false);
 
   const clear = () => {
     setCurrentOperand('0');
@@ -19,13 +20,19 @@ function Calculator() {
 
   const appendNumber = (number) => {
     if (number === '.' && currentOperand.includes('.')) return;
-    if (number === '+/-') {
-      setCurrentOperand((currentOperand * -1).toString());
+    if (negativeOperand === true) {
+      setNegativeOperand(false);
     }
     setCurrentOperand(currentOperand.toString() + number.toString());
   };
 
   const chooseOperation = (operation) => {
+    if (currentOperand === '' && operation === '-') {
+      setNegativeOperand(true);
+      setCurrentOperand('-');
+    } else {
+      setCurrentOperand('+');
+    }
     if (currentOperand === '') return;
     if (previousOperand !== '') {
       operationCompute();
